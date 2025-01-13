@@ -1,0 +1,94 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String  @id @default(uuid())
+  email             String  @unique
+  username          String  @unique
+  password          String
+  isVerified        Boolean @default(false)
+  displayPictureUrl String?
+  displayPictureKey String?
+
+  createdPosts Post[]    @relation("Created")
+  savedPosts   Post[]    @relation("Posts")
+  likedPosts   Post[]    @relation("Likes")
+  comments     Comment[] @relation("Commented")
+
+  UserPreferences UserPreferences?
+
+   followedBy Follow[] @relation("UserFollowed")
+  following  Follow[] @relation("UserFollows")
+ 
+}
+model Follow {
+  id         String @id @default(uuid())
+  followerId String
+  followingId String
+
+  follower User @relation("UserFollowed", fields: [followerId], references: [id])
+  following User @relation("UserFollows", fields: [followingId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@unique([followerId, followingId]) // Prevents duplicate follows
+}
+
+model Post {
+  id        String   @id @default(uuid())
+  title     String
+  caption   String
+  imagesKey String[]
+  imagesUrl String[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  author   User   @relation("Created", fields: [authorId], references: [id])
+  authorId String
+
+  savedBy  User[]    @relation("Posts")
+  likes    User[]    @relation("Likes")
+  comments Comment[]
+}
+
+model Comment {
+  id      String @id @default(uuid())
+  content String
+
+  commentedBy    User?   @relation("Commented", fields: [commentUserId], references: [id])
+  commentUserId String
+  Post          Post?   @relation(fields: [postId], references: [id])
+  postId        String?
+}
+
+enum AccountType {
+  PUBLIC
+  PRIVATE
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  PREFER_NOT_SAY
+}
+
+model UserPreferences {
+  id                      String      @id @default(uuid())
+  bio                     String?
+  receiveMarkettingEmails Boolean     @default(false)
+  website                 String?
+  gender                  Gender      @default(PREFER_NOT_SAY)
+  accountType             AccountType @default(PUBLIC)
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
+}
