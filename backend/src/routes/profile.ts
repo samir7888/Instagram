@@ -76,23 +76,25 @@ console.log(token)
 // Add this route to your profileRouter or userRouter
 
 profileRouter.get(
-  '/',
+  '/userpreferences',
   middleware,
   async (req: AuthenticatedRequest, res: Response): Promise<void> => {
+    
     if (!req.user) {
       res.status(401).json({ msg: "User not authenticated" });
       return;
     }
 
     try {
-      const user = await prisma.user.findUnique({
-        where: { id: req.user.id },
-        select: {
-          id: true,
-          username: true,
-          displayPictureUrl: true,
-          // Add any other fields you need
-        }
+      const user = await prisma.userPreferences.findFirst({
+        where: { userId: req.user.id },
+      select:{
+        bio:true,
+        receiveMarkettingEmails:true,
+        gender:true,
+        accountType:true,
+        website:true
+      }
       });
 
       if (!user) {

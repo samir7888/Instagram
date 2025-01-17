@@ -18,6 +18,7 @@ model User {
   isVerified        Boolean @default(false)
   displayPictureUrl String?
   displayPictureKey String?
+  isFollowedByUser Boolean @default(false)
 
   createdPosts Post[]    @relation("Created")
   savedPosts   Post[]    @relation("Posts")

@@ -21,10 +21,10 @@ export function useFollow() {
     setSuggested((oldSuggestions) =>
       oldSuggestions.filter((user) => user.id !== id),
     );
+ 
   setCurrentProfile((currentProfile) => ({
       ...currentProfile,
       isFollowedByUser: true
-    
     }));
     
   };

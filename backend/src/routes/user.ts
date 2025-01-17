@@ -6,7 +6,7 @@ var jwt = require("jsonwebtoken");
 const Router = require("express");
 
 const userRouter = Router();
-
+const saltRounds = 10;
 interface AuthenticatedRequest extends Request {
   user?: { id: string }; // Extend request object to include user
 }
@@ -38,11 +38,12 @@ function middleware(req: AuthenticatedRequest, res: Response, next: any) {
 //signup
 userRouter.post("/signup", async (req: any, res: any) => {
   const { email, password, username } = req.body;
+  const hashedPassword = await bcrypt.hash(password, saltRounds);
   try {
     const user = await prisma.user.create({
       data: {
         email,
-        password,
+        password:hashedPassword,
         username,
       },
     });
@@ -65,13 +66,20 @@ userRouter.post("/signup", async (req: any, res: any) => {
 //signin
 userRouter.post("/signin", async (req: any, res: any) => {
   const { email, password } = req.body;
-
   try {
+    
     // Check if the user exists
     const existingUser = await prisma.user.findFirst({
       where: { email },
     });
-
+    if (!existingUser) {
+      return res.status(401).json({ msg: "Invalid email or password" });
+    }
+   // Compare the entered password with the stored hash
+   const isMatch = await bcrypt.compare(password, existingUser.password);
+   if (!isMatch) {
+     return res.status(401).json({ msg: "Invalid email or password" });
+   }
     // Validate user and password
     if (!existingUser ) {
       return res.status(401).json({
@@ -127,12 +135,15 @@ userRouter.get("/feed/suggestions", middleware, async (req: AuthenticatedRequest
         // Exclude the current user
         id: {
           not: req.user.id
-        }
+        },
+        isFollowedByUser:false
+    
       },
       select: {
         id: true,
         username: true,
-        displayPictureUrl: true
+        displayPictureUrl: true,
+        isFollowedByUser:true
       }
     });
 
@@ -151,7 +162,7 @@ userRouter.get("/:id", async (req : Request, res:Response) => {
   const { id } = req.params;
 
   try {
-    const user = await prisma.user.findUnique({
+    const user = await prisma.user.findFirst({
       where: { id },
       include: {
         
@@ -159,8 +170,9 @@ userRouter.get("/:id", async (req : Request, res:Response) => {
        followedBy:true,
        following:true,
        createdPosts:true,
-       likedPosts:true
-      },
+       likedPosts:true,
+       
+      }
     });
 
     if (!user) {
@@ -171,6 +183,7 @@ userRouter.get("/:id", async (req : Request, res:Response) => {
     id: user.id,
     username: user.username,
     email:user.email,
+    isFollowedByUser:user.isFollowedByUser,
     displayPictureUrl: user.displayPictureUrl,
     UserPreferences: user.UserPreferences,
     createdPosts: user.createdPosts,

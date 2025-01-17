@@ -28,7 +28,11 @@ export function Edit() {
   useEffect(() => {
     const fetchUserPreferences = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/me/userpreferences");
+        const res = await axios.get("http://localhost:3000/api/me/userpreferences",{
+          headers:{
+            'Authorization':`${token}`
+          }
+        });
         setInitialValues({
           website: res.data.website || "",
           bio: res.data.bio || "",

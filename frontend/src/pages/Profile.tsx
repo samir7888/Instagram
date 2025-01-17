@@ -39,7 +39,7 @@ export const Profile = () => {
       </div>
     );
   }
-
+console.log(userState.isFollowedByUser)
   return (
     <div className="min-h-screen bg-black text-white flex">
       <div className=" hidden md:block border-r border-gray-800 w-[30%]">
