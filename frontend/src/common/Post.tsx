@@ -80,21 +80,21 @@ const Post = ({ postId }: PostProps) => {
       <div className="flex items-center justify-between p-4">
         <div
           onClick={() => {
-            navigate(`/${post.author.id}`);
+            navigate(`/${post?.author?.id}`);
           }}
           className="cursor-pointer flex items-center gap-2"
         >
           <img
             src={
-              post.author.displayPictureUrl
+              post?.author?.displayPictureUrl
                 ? `https://instagram-production-90d9.up.railway.app/${post.author.displayPictureUrl}`
                 : "/path/to/default/image.jpg"
             }
-            alt={post.author.username}
+            alt={post?.author?.username}
             className="h-8 w-8 rounded-full object-cover"
           />
           <span className="font-semibold text-white">
-            {post.author.username}
+            {post.author?.username}
           </span>
         </div>
         <button className="hover:bg-gray-800 p-1 rounded-full">
@@ -163,19 +163,19 @@ const Post = ({ postId }: PostProps) => {
 
         {/* Likes */}
         <div className="text-sm font-medium">
-          {post._count?.likes > 0
-            ? `${post._count.likes?.toLocaleString()} likes`
+          {(post?._count?.likes ?? 0) > 0
+            ? `${(post?._count?.likes ?? 0).toLocaleString()} likes`
             : "Be the first to like this"}
         </div>
 
         {/* Caption */}
         <div className="mt-2 text-sm">
-          <span className="font-semibold mr-2">{post.author.username}</span>
+          <span className="font-semibold mr-2">{post?.author?.username}</span>
           {post.caption}
         </div>
 
         {/* Comments */}
-        {post._count.comments !== 0 &&
+        {post?._count?.comments !== 0 &&
           (!showComments ? (
             <div
               onClick={() => {
@@ -183,7 +183,7 @@ const Post = ({ postId }: PostProps) => {
               }}
               className="text-sm mb-2 text-gray-400 cursor-pointer font-medium"
             >
-              View all {post._count.comments} comments
+              View all {post?._count?.comments} comments
             </div>
           ) : (
             <Comments postId={post.id} />

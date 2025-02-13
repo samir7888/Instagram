@@ -8,8 +8,8 @@ export const previewPostSelector = selector({
     const state = get(postState);
     return state.map((post) => ({
       id: post.id,
-      commentCount: post._count.comments,
-      likeCount: post._count.likes,
+      commentCount: post?._count?.comments,
+      likeCount: post?._count?.likes,
       previewImage: post.imagesUrl[0],
     }));
   },
