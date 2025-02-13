@@ -1,18 +1,11 @@
 import Instagram from "../assets/Screenshot 2025-01-04 111342.png";
 import { useNavigate } from "react-router-dom";
 import {
-    Heart,
     House,
-    Search,
-    Telescope,
-    Film,
-    MessageSquare,
     SquarePlus,
     User
   } from "lucide-react";
-import { useSetRecoilState } from "recoil";
-import {loggedInUserProfileState} from '../store/atoms/profile'
-import { useEffect } from "react";
+
 const Navigationbar = () => {
     const navigate = useNavigate();
     const id = localStorage.getItem("id")
@@ -28,26 +21,9 @@ const Navigationbar = () => {
                 <House className="h-6 w-6" />
                 <h3>Home</h3>
               </div>
-              <div className="flex items-center gap-4 cursor-pointer">
-                <Search className="h-6 w-6" />
-                <h3>Search</h3>
-              </div>
-              <div className="flex items-center gap-4 cursor-pointer">
-                <Telescope className="h-6 w-6" />
-                <h3>Explore</h3>
-              </div>
-              <div className="flex items-center gap-4 cursor-pointer">
-                <Film className="h-6 w-6" />
-                <h3>Reels</h3>
-              </div>
-              <div className="flex items-center gap-4 cursor-pointer">
-                <MessageSquare className="h-6 w-6" />
-                <h3>Messages</h3>
-              </div>
-              <div className="flex items-center gap-4 cursor-pointer">
-                <Heart className="h-6 w-6" />
-                <h3>Notification</h3>
-              </div>
+             
+             
+             
               <div onClick={()=>{
                 navigate(`/create/${id}`)
               }} className="flex items-center gap-4 cursor-pointer">

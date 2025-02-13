@@ -12,7 +12,7 @@ export function useSinglePost(postId: string) {
   const getPost = useCallback(
     async (postId: string) => {
       const response = await axios.get(`http://localhost:3000/api/post/posts/${postId}`);
-      console.log(response)
+      
       setPost(response.data);
     },
     [setPost,postId],

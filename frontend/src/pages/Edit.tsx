@@ -181,7 +181,6 @@ function ChangeDP() {
         // displayPictureUrl: res.data.displayPictureUrl,
       ]);
 
-      console.log(res);
 
       toast.success(response.data.msg);
     } catch (error) {

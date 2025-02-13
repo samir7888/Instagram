@@ -34,7 +34,6 @@ const token = localStorage.getItem('token')
   //to like
   const like = useCallback(async () => {
     try {
-      console.log(postId)
       await axios.post(`http://localhost:3000/api/post/${postId}/like`,{}, {
         headers:{
           'Authorization': `${token}`

@@ -9,7 +9,6 @@ import {Profile} from "./pages/Profile";
 import { RecoilRoot } from "recoil";
 import { Edit } from "./pages/Edit";
 function App() {
-  // const id = localStorage.getItem("id");
   return (
     <div className="">
       <RecoilRoot>

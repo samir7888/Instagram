@@ -12,11 +12,7 @@ interface AuthenticatedRequest extends Request {
 }
 function middleware(req: AuthenticatedRequest, res: Response, next: any) {
   const token = req.headers.authorization || req.headers['Authorization'];
-  console.log("first")
-  console.log(req.headers.authorization)
-  console.log(req.headers)
-  console.log(req.headers['Authorization'])
-  console.log(token)
+  
   if (!token) {
     return res.status(401).json({ msg: "No token provided" });
   }

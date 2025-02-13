@@ -56,7 +56,7 @@ const middleware = (
   next: NextFunction
 ): void => {
   const token = req.headers.authorization;
-console.log(token)
+
   if (!token) {
     res.status(401).json({ msg: "No token provided" });
     return;

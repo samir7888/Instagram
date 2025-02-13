@@ -31,7 +31,7 @@ const Suggestionbar = () => {
           src={
             loginUser.displayPictureUrl
               ? `http://localhost:3000/${loginUser.displayPictureUrl}`
-              : "/path/to/default/image.jpg"
+              : "../assets/user.png"
           }
           alt="Your profile"
           className="h-14 w-14 rounded-full"
@@ -88,7 +88,6 @@ const Suggestionbar = () => {
                    await unfollowFn(suggestion.id);
                     
                   }
-                  console.log(currentUser)
                 }
             }
                 className="text-xs font-semibold text-blue-500"

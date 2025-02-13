@@ -23,7 +23,7 @@ const Signin = () => {
         }
         if (res.data?.id) {
           localStorage.setItem("id", res.data.id);
-          console.log(res.data)
+          
         }
       } catch (error) {
         console.error('Error signing in', error);

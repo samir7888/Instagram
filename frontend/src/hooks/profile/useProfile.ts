@@ -17,7 +17,6 @@ export function useProfile() {
         setCurrentUserProfile(profileData);
       } catch (e: unknown) {
         if (e instanceof AxiosError) {
-          console.log(e.response?.status);
           if (e.response?.status) {
             setUserNotFound(true);
             localStorage.removeItem('token');
