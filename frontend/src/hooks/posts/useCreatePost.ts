@@ -1,16 +1,15 @@
 import { useSetRecoilState } from "recoil";
 import { postState } from "../../store/atoms/posts";
 import { useCallback } from "react";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { IPost } from "../../interfaces";
 
-// Define types for post data
-interface Post {
-  id: string;
-  title: string;
-  caption: string;
-  imagesUrl: string[];
-  // Add other post properties as needed
+interface Post{
+  id:string,
+  title:string,
+  caption:string,
+  imagesUrl:string[];
+  
 }
 
 export const useCreatePost = (userId: string) => {
@@ -19,7 +18,7 @@ export const useCreatePost = (userId: string) => {
   const createPost = useCallback(
     async (formData: FormData, token: string) => {
       try {
-        const response = await axios.post<Post>(
+        const response = await axios.post<IPost>(
           `https://instagram-production-90d9.up.railway.app/api/post/create/${userId}`,
           formData,
           {
@@ -29,7 +28,7 @@ export const useCreatePost = (userId: string) => {
             },
           }
         );
-        const newPost: any = {
+        const newPost: Post = {
           id: response.data.id,
           title: response.data.title,
           caption: response.data.caption,
@@ -37,10 +36,7 @@ export const useCreatePost = (userId: string) => {
         };
         setPost((prevPosts) => [...prevPosts, newPost]);
       } catch (error: unknown) {
-        const axiosError = error as AxiosError;
-        throw new Error(
-          axiosError.response?.data?.message || "Failed to create post"
-        );
+       console.log(error)
       }
     },
     [setPost, userId]

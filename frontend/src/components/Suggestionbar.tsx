@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+
 
 import { useRecoilValue } from "recoil";
 import { suggestedUsersState } from "../store/atoms/suggestedPeople";

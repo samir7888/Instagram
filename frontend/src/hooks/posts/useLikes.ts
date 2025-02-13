@@ -50,7 +50,7 @@ export function useLike(postId: string) {
           ...postState,
           _count: {
             ...postState._count,
-            likes: postState._count.likes + 1,
+            likes: (postState?._count?.likes ?? 0) + 1,
           },
         };
         // Set the updated state
@@ -79,7 +79,7 @@ export function useLike(postId: string) {
           ...postState,
           _count: {
             ...postState._count,
-            likes: postState._count.likes - 1,
+            likes: (postState?._count?.likes ?? 0) - 1,
           },
         };
         // Set the updated state

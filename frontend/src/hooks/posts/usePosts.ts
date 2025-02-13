@@ -2,29 +2,18 @@ import { useSetRecoilState } from "recoil";
 import { useCallback, useEffect } from "react";
 import { postState } from "../../store/atoms/posts";
 import axios from "axios";
+import { IPost } from "../../interfaces";
 
-interface Author {
-  id: string;
-  username: string;
-  displayPictureUrl: string;
-}
 
-interface Post {
-  id: string;
-  caption: string;
-  imagesUrl: string[];
-  likes: number;
-  comments: number;
-  author: Author;
-  username: string;
-}
+
+
 
 export function usePosts() {
-  const setPosts = useSetRecoilState<Post[]>(postState);
+  const setPosts = useSetRecoilState<IPost[]>(postState);
 
   const getPosts = useCallback(async () => {
     try {
-      const response = await axios.get<Post[]>(
+      const response = await axios.get<IPost[]>(
         "https://instagram-production-90d9.up.railway.app/api/post/"
       );
       setPosts(response.data);
