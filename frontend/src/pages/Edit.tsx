@@ -5,7 +5,7 @@ import {
   loggedInUserProfileState,
 } from "../store/atoms/profile";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { ChangeEvent, useRef, useState,useEffect } from "react";
+import { ChangeEvent, useRef, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { toFormikValidationSchema } from "zod-formik-adapter";
@@ -23,16 +23,19 @@ export function Edit() {
     receiveMarkettingEmails: false,
     accountType: "",
   });
-  
+
   // Fetch user preferences when component mounts
   useEffect(() => {
     const fetchUserPreferences = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/me/userpreferences",{
-          headers:{
-            'Authorization':`${token}`
+        const res = await axios.get(
+          "https://instagram-production-90d9.up.railway.app/api/me/userpreferences",
+          {
+            headers: {
+              Authorization: `${token}`,
+            },
           }
-        });
+        );
         setInitialValues({
           website: res.data.website || "",
           bio: res.data.bio || "",
@@ -57,18 +60,18 @@ export function Edit() {
       <div className="sm:m-20 mx-auto">
         <h1 className="font-semibold text-xl w-full pb-3">Edit Profile</h1>
         <ChangeDP />
-        
+
         <Formik
           enableReinitialize // Add this to update form when initialValues change
           initialValues={initialValues}
           onSubmit={async (values) => {
             try {
               const res = await axios.post(
-                "http://localhost:3000/api/me/userpreferences",
-                values, {
+                "https://instagram-production-90d9.up.railway.app/api/me/userpreferences",
+                values,
+                {
                   headers: {
                     Authorization: `${token}`,
-                 
                   },
                 } // Send values directly
               );
@@ -90,7 +93,11 @@ export function Edit() {
                 name="website"
                 className="focus:ring-transparent border-gray-900 bg-gray-950 rounded-lg"
               />
-              <ErrorMessage name="website" component="div" className="text-red-500" />
+              <ErrorMessage
+                name="website"
+                component="div"
+                className="text-red-500"
+              />
 
               <label>Bio</label>
               <Field
@@ -99,7 +106,11 @@ export function Edit() {
                 name="bio"
                 className="focus:ring-transparent border-gray-900 bg-gray-950 rounded-lg min-h-[60px]"
               />
-              <ErrorMessage name="bio" component="div" className="text-red-500" />
+              <ErrorMessage
+                name="bio"
+                component="div"
+                className="text-red-500"
+              />
 
               <label>Gender</label>
               <Field
@@ -112,7 +123,11 @@ export function Edit() {
                 <option value="FEMALE">Female</option>
                 <option value="RATHER_NOT_SAY">Rather Not Say</option>
               </Field>
-              <ErrorMessage name="gender" component="div" className="text-red-500" />
+              <ErrorMessage
+                name="gender"
+                component="div"
+                className="text-red-500"
+              />
 
               <label>Account Type</label>
               <Field
@@ -124,14 +139,18 @@ export function Edit() {
                 <option value="PUBLIC">Public</option>
                 <option value="PRIVATE">Private</option>
               </Field>
-              <ErrorMessage name="accountType" component="div" className="text-red-500" />
+              <ErrorMessage
+                name="accountType"
+                component="div"
+                className="text-red-500"
+              />
 
               <button
                 type="submit"
                 className="w-auto bg-blue-500 focus:bg-blue-600 hover:bg-blue-600 py-1 px-3 rounded-md text-white transition-colors"
                 disabled={formik.isSubmitting}
               >
-                {formik.isSubmitting ? 'Updating...' : 'Done'}
+                {formik.isSubmitting ? "Updating..." : "Done"}
               </button>
             </Form>
           )}
@@ -157,7 +176,7 @@ function ChangeDP() {
       formData.append("displayPictureUrl", file); // Match the backend multer field name
 
       const response = await axios.post(
-        "http://localhost:3000/api/me/profile",
+        "https://instagram-production-90d9.up.railway.app/api/me/profile",
         formData, // Send the FormData directly
         {
           headers: {
@@ -168,7 +187,9 @@ function ChangeDP() {
       );
 
       // Update profile after successful upload
-      const res = await axios.get("http://localhost:3000/api/me/");
+      const res = await axios.get(
+        "https://instagram-production-90d9.up.railway.app/api/me/"
+      );
       setProfile({
         id: res.data.id,
         username: res.data.username,
@@ -180,7 +201,6 @@ function ChangeDP() {
         // username: res.data.username,
         // displayPictureUrl: res.data.displayPictureUrl,
       ]);
-
 
       toast.success(response.data.msg);
     } catch (error) {
@@ -212,7 +232,7 @@ function ChangeDP() {
           className="rounded-full"
           src={
             profile.displayPictureUrl
-              ? `http://localhost:3000/${profile.displayPictureUrl}`
+              ? `https://instagram-production-90d9.up.railway.app/${profile.displayPictureUrl}`
               : "/path/to/default/image.jpg"
           }
           alt={`${profile.username}'s photo`}

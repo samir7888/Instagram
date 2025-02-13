@@ -11,13 +11,13 @@ import { useNavigate } from "react-router-dom";
 import { useFollow } from "../hooks/follow/useFollow";
 
 const Suggestionbar = () => {
-  const currentUser  = useRecoilValue(currentProfileState)
+  const currentUser = useRecoilValue(currentProfileState);
   const navigate = useNavigate();
   useSuggestedPeople();
   const users = useRecoilValue(suggestedUsersState);
   const loginUser = useRecoilValue(loggedInUserProfileState);
   const { followFn, unfollowFn } = useFollow();
-  
+
   return (
     <>
       {/* User profile */}
@@ -30,7 +30,7 @@ const Suggestionbar = () => {
         <img
           src={
             loginUser.displayPictureUrl
-              ? `http://localhost:3000/${loginUser.displayPictureUrl}`
+              ? `https://instagram-production-90d9.up.railway.app/${loginUser.displayPictureUrl}`
               : "../assets/user.png"
           }
           alt="Your profile"
@@ -66,7 +66,7 @@ const Suggestionbar = () => {
                 <img
                   src={
                     suggestion.displayPictureUrl
-                      ? `http://localhost:3000/${suggestion.displayPictureUrl}`
+                      ? `https://instagram-production-90d9.up.railway.app/${suggestion.displayPictureUrl}`
                       : "/path/to/default/image.jpg"
                   }
                   alt={suggestion.username}
@@ -80,16 +80,13 @@ const Suggestionbar = () => {
                 </div>
               </div>
               <button
-                onClick={async() => {
+                onClick={async () => {
                   if (!currentUser.isFollowedByUser) {
                     await followFn(suggestion.id || "");
-                   
                   } else {
-                   await unfollowFn(suggestion.id);
-                    
+                    await unfollowFn(suggestion.id);
                   }
-                }
-            }
+                }}
                 className="text-xs font-semibold text-blue-500"
               >
                 Follow
@@ -103,5 +100,3 @@ const Suggestionbar = () => {
 };
 
 export default Suggestionbar;
-
-

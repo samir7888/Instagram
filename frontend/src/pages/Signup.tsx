@@ -17,21 +17,20 @@ const Signup = () => {
     try {
       setLoading(true);
       const res = await axios.post(
-        "http://localhost:3000/api/user/signup",
-        formData  // Send formData directly
+        "https://instagram-production-90d9.up.railway.app/api/user/signup",
+        formData // Send formData directly
       );
-      
+
       if (res.data?.token) {
         localStorage.setItem("token", res.data.token);
       }
       if (res.data?.id) {
         localStorage.setItem("id", res.data.id);
-        
       }
     } catch (error) {
       console.log("error signing up", error);
     } finally {
-      setLoading(false);  // Always reset loading state
+      setLoading(false); // Always reset loading state
       navigate("/");
     }
   };
@@ -47,14 +46,14 @@ const Signup = () => {
         <div className="rounded-lg p-8">
           <form onSubmit={handleSubmit} className="space-y-4">
             <input
-              type="email"  // Changed to email type
+              type="email" // Changed to email type
               placeholder="Email"
               className="w-full rounded border border-zinc-700 bg-zinc-900 p-3 text-sm text-white placeholder-zinc-400 focus:border-zinc-500 focus:outline-none"
               value={formData.email}
               onChange={(e) =>
                 setFormData({ ...formData, email: e.target.value })
               }
-              required  // Added required attribute
+              required // Added required attribute
             />
             <input
               type="password"
@@ -65,7 +64,7 @@ const Signup = () => {
                 setFormData({ ...formData, password: e.target.value })
               }
               required
-              minLength={6}  // Added minimum length
+              minLength={6} // Added minimum length
             />
             <input
               type="text"

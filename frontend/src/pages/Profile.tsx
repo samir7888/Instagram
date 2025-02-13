@@ -39,7 +39,7 @@ export const Profile = () => {
       </div>
     );
   }
-console.log(userState.isFollowedByUser)
+  console.log(userState.isFollowedByUser);
   return (
     <div className="min-h-screen bg-black text-white flex">
       <div className=" hidden md:block border-r border-gray-800 w-[30%]">
@@ -53,7 +53,7 @@ console.log(userState.isFollowedByUser)
             <img
               src={
                 userState.displayPictureUrl
-                  ? `http://localhost:3000/${userState.displayPictureUrl}`
+                  ? `https://instagram-production-90d9.up.railway.app/${userState.displayPictureUrl}`
                   : "/path/to/default/image.jpg"
               }
               alt="Profile"
@@ -89,8 +89,11 @@ console.log(userState.isFollowedByUser)
                 <p></p>
               )}
 
-{userState.isFollowedByUser && <button  className="px-4 py-1.5 bg-red-800 rounded-lg text-sm font-medium">UnFollow</button>}
-
+              {userState.isFollowedByUser && (
+                <button className="px-4 py-1.5 bg-red-800 rounded-lg text-sm font-medium">
+                  UnFollow
+                </button>
+              )}
             </div>
 
             <div className="flex gap-8 mb-4">
@@ -150,7 +153,7 @@ console.log(userState.isFollowedByUser)
             {userPost[0]?.imagesUrl?.map((post, index) => (
               <div key={index} className="aspect-square bg-gray-800">
                 <img
-                  src={`http://localhost:3000/${post}`}
+                  src={`https://instagram-production-90d9.up.railway.app/${post}`}
                   alt="Post"
                   className="w-full h-full object-cover"
                 />

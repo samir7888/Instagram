@@ -3,20 +3,23 @@ import { useEffect } from "react";
 import { suggestedUsersState } from "../../store/atoms/suggestedPeople";
 import axios from "axios";
 
-export function useSuggestedPeople(){
-    const [suggestedUsers, setSuggestedUsers] =
+export function useSuggestedPeople() {
+  const [suggestedUsers, setSuggestedUsers] =
     useRecoilState(suggestedUsersState);
-const token = localStorage.getItem("token")
-    useEffect(()=>{
-        const getPosts = async() =>{
-            const response = await axios.get('http://localhost:3000/api/user/feed/suggestions', {
-                headers: {
-                    'Authorization': `${token}`
-                }
-            });
-            setSuggestedUsers([...response.data]);
+  const token = localStorage.getItem("token");
+  useEffect(() => {
+    const getPosts = async () => {
+      const response = await axios.get(
+        "https://instagram-production-90d9.up.railway.app/api/user/feed/suggestions",
+        {
+          headers: {
+            Authorization: `${token}`,
+          },
         }
-        getPosts();
-    },[token, setSuggestedUsers]);
-    return {suggestedUsers};
+      );
+      setSuggestedUsers([...response.data]);
+    };
+    getPosts();
+  }, [token, setSuggestedUsers]);
+  return { suggestedUsers };
 }

@@ -1,26 +1,28 @@
-import { useCallback, useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
-import { useRecoilState } from 'recoil';
+import { useCallback, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { useRecoilState } from "recoil";
 
-
-import { postStateWithID } from '../../store/atoms/posts';
-import { IPost } from '../../interfaces/';
-import axios from 'axios';
+import { postStateWithID } from "../../store/atoms/posts";
+import { IPost } from "../../interfaces/";
+import axios from "axios";
 
 export function useLike(postId: string) {
   const [postState, setPostState] = useRecoilState(postStateWithID(postId));
   const [isLiked, setIsLiked] = useState(false);
-const token = localStorage.getItem('token')
+  const token = localStorage.getItem("token");
   const isPostLiked = useCallback(async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/post/${postId}/isLiked`, {
-        headers:{
-          'Authorization': `${token}`
+      const response = await axios.get(
+        `https://instagram-production-90d9.up.railway.app/api/post/${postId}/isLiked`,
+        {
+          headers: {
+            Authorization: `${token}`,
+          },
         }
-      });
+      );
       return response.data.liked as boolean;
     } catch {
-      toast.error('Error happened while fetching likes');
+      toast.error("Error happened while fetching likes");
     }
   }, [postId]);
 
@@ -30,15 +32,18 @@ const token = localStorage.getItem('token')
     });
   }, [isPostLiked]);
 
-
   //to like
   const like = useCallback(async () => {
     try {
-      await axios.post(`http://localhost:3000/api/post/${postId}/like`,{}, {
-        headers:{
-          'Authorization': `${token}`
+      await axios.post(
+        `https://instagram-production-90d9.up.railway.app/api/post/${postId}/like`,
+        {},
+        {
+          headers: {
+            Authorization: `${token}`,
+          },
         }
-      });
+      );
       if (postState !== null) {
         // Update the likes property
         const updatedPost: IPost = {
@@ -53,17 +58,21 @@ const token = localStorage.getItem('token')
         setIsLiked(true);
       }
     } catch {
-      toast.error('Unable to like the post');
+      toast.error("Unable to like the post");
     }
   }, [postId, postState, setPostState]);
 
   const unLike = useCallback(async () => {
     try {
-      await axios.post(`http://localhost:3000/api/post/${postId}/removeLike`,{},{
-        headers:{
-           'Authorization': `${token}`
+      await axios.post(
+        `https://instagram-production-90d9.up.railway.app/api/post/${postId}/removeLike`,
+        {},
+        {
+          headers: {
+            Authorization: `${token}`,
+          },
         }
-      });
+      );
       if (postState !== null) {
         // Update the likes property
         const updatedPost: IPost = {
@@ -78,7 +87,7 @@ const token = localStorage.getItem('token')
         setIsLiked(false);
       }
     } catch {
-      toast.error('Unable to remove like from the post');
+      toast.error("Unable to remove like from the post");
     }
   }, [postId, postState, setPostState]);
 

@@ -15,10 +15,12 @@ const Home = () => {
   useEffect(() => {
     const id = localStorage.getItem("id");
     if (!id) {
-      navigate('/signin')
+      navigate("/signin");
     }
     const loggedUser = async () => {
-      const res = await axios.get(`http://localhost:3000/api/user/${id}`);
+      const res = await axios.get(
+        `https://instagram-production-90d9.up.railway.app/api/user/${id}`
+      );
       setUser(res.data);
     };
     loggedUser();

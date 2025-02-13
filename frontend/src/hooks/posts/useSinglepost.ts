@@ -1,28 +1,26 @@
-import { postUserState } from './../../store/atoms/posts';
-import { useCallback } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { postUserState } from "./../../store/atoms/posts";
+import { useCallback } from "react";
+import { useSetRecoilState } from "recoil";
 
-
-import { postStateWithID } from '../../store/atoms/posts';
-import axios from 'axios';
+import { postStateWithID } from "../../store/atoms/posts";
+import axios from "axios";
 
 export function useSinglePost(postId: string) {
   const setPost = useSetRecoilState(postStateWithID(postId));
 
   const getPost = useCallback(
     async (postId: string) => {
-      const response = await axios.get(`http://localhost:3000/api/post/posts/${postId}`);
-      
+      const response = await axios.get(
+        `https://instagram-production-90d9.up.railway.app/api/post/posts/${postId}`
+      );
+
       setPost(response.data);
     },
-    [setPost,postId],
+    [setPost, postId]
   );
-
- 
 
   return { getPost };
 }
-
 
 //user posts
 export function useSingleUserPost() {
@@ -30,10 +28,12 @@ export function useSingleUserPost() {
 
   const getUserPost = useCallback(
     async (userId: string) => {
-      const response = await axios.get(`http://localhost:3000/api/post/${userId}`);
+      const response = await axios.get(
+        `https://instagram-production-90d9.up.railway.app/api/post/${userId}`
+      );
       postUserStateValue(response.data);
     },
-    [postUserStateValue],
+    [postUserStateValue]
   );
 
   return { getUserPost };

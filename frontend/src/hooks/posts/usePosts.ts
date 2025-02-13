@@ -1,7 +1,7 @@
-import { useSetRecoilState } from 'recoil';
-import { useCallback, useEffect } from 'react';
-import { postState } from '../../store/atoms/posts';
-import axios from 'axios';
+import { useSetRecoilState } from "recoil";
+import { useCallback, useEffect } from "react";
+import { postState } from "../../store/atoms/posts";
+import axios from "axios";
 
 interface Author {
   id: string;
@@ -24,11 +24,13 @@ export function usePosts() {
 
   const getPosts = useCallback(async () => {
     try {
-      const response = await axios.get<Post[]>('http://localhost:3000/api/post/');
+      const response = await axios.get<Post[]>(
+        "https://instagram-production-90d9.up.railway.app/api/post/"
+      );
       setPosts(response.data);
       return response.data;
     } catch (error) {
-      console.error('Error fetching posts:', error);
+      console.error("Error fetching posts:", error);
       setPosts([]);
       throw error;
     }

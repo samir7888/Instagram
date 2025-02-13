@@ -20,7 +20,7 @@ export const useCreatePost = (userId: string) => {
     async (formData: FormData, token: string) => {
       try {
         const response = await axios.post<Post>(
-          `http://localhost:3000/api/post/create/${userId}`,
+          `https://instagram-production-90d9.up.railway.app/api/post/create/${userId}`,
           formData,
           {
             headers: {

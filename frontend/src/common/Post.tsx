@@ -72,7 +72,10 @@ const Post = ({ postId }: PostProps) => {
   }
 
   return (
-    <div key={post.id} className="h-fit rounded overflow-hidden border-gray-800 border w-11/12 mx-auto md:min-w-[40rem] lg:w-4/12 md:w-6/12 bg-black sm:mx-3 md:mx-0 lg:mx-0  my-1 flex flex-col">
+    <div
+      key={post.id}
+      className="h-fit rounded overflow-hidden border-gray-800 border w-11/12 mx-auto md:min-w-[40rem] lg:w-4/12 md:w-6/12 bg-black sm:mx-3 md:mx-0 lg:mx-0  my-1 flex flex-col"
+    >
       {/* Post header */}
       <div className="flex items-center justify-between p-4">
         <div
@@ -84,7 +87,7 @@ const Post = ({ postId }: PostProps) => {
           <img
             src={
               post.author.displayPictureUrl
-                ? `http://localhost:3000/${post.author.displayPictureUrl}`
+                ? `https://instagram-production-90d9.up.railway.app/${post.author.displayPictureUrl}`
                 : "/path/to/default/image.jpg"
             }
             alt={post.author.username}
@@ -114,7 +117,7 @@ const Post = ({ postId }: PostProps) => {
                   src={
                     url.startsWith("http")
                       ? url
-                      : `http://localhost:3000/${url}`
+                      : `https://instagram-production-90d9.up.railway.app/${url}`
                   }
                   alt={`Post content ${index + 1}`}
                   className="w-full h-full object-cover"

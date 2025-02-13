@@ -5,8 +5,9 @@ import { postState } from "../store/atoms/posts";
 
 import { usePosts } from "../hooks/posts/usePosts";
 import { useEffect } from "react";
+import { IPost } from "../interfaces";
 const Posts = () => {
-  const posts = useRecoilValue(postState);
+  const posts = useRecoilValue<IPost[]>(postState);
   const { getPosts } = usePosts();
   useEffect(() => {
     const fetchPosts = async () => {
@@ -19,6 +20,7 @@ const Posts = () => {
 
     fetchPosts();
   }, [getPosts]);
+  console.log(posts)
   if (!posts.length) {
     return (
       <div className="text-white text-center py-8">No posts available</div>
