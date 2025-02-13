@@ -115,7 +115,6 @@ userRouter.get("/", async(req: any, res: any) => {
   } catch (error) {
     console.log(error)
   }
-  res.send("Get all posts");
 });
 
 
