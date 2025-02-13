@@ -1,1 +1,1 @@
-{"root":["./src/index.ts","./src/lib/prisma.ts","./src/routes/post.ts","./src/routes/user.ts"],"version":"5.7.2"}
+{"root":["./src/index.ts","./src/lib/prisma.ts","./src/routes/comment.ts","./src/routes/post.ts","./src/routes/profile.ts","./src/routes/user.ts"],"version":"5.7.2"}
