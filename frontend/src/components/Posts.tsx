@@ -21,6 +21,8 @@ const Posts = () => {
     fetchPosts();
   }, [getPosts]);
   console.log(posts)
+
+  
   if (!posts.length) {
     return (
       <div className="text-white text-center py-8">No posts available</div>

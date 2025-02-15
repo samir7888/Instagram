@@ -29,9 +29,10 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-black ">
       {/* Main content container */}
-      <div className="w-full flex max-w-6xl gap-8  py-4">
+      <div className=" w-full flex max-w-6xl gap-8  py-4">
         {/* Menu sidebar - hidden on mobile */}
-        <div className=" hidden lg:block w-80 relative ">
+
+        <div className="hidden lg:block w-80 relative ">
           <Navigationbar />
         </div>
 

@@ -52,7 +52,8 @@ userRouter.post("/signup", async (req: any, res: any) => {
       token,
     });
   } catch (error) {
-    console.log("Error creating blog:", error);
+    console.error("Error during signup:", error);
+    res.status(500).json({ msg: "Internal server error" });
   }
 });
 
