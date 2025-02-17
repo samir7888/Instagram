@@ -10,4 +10,5 @@ COPY . .
 
 EXPOSE 5000
 
+RUN [ "npx", "prisma","generate" ]
 CMD [ "npm", "start"]
