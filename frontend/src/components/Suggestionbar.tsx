@@ -31,7 +31,7 @@ const Suggestionbar = () => {
           src={
             loginUser.displayPictureUrl
               ? `https://instagram-production-90d9.up.railway.app/${loginUser.displayPictureUrl}`
-              : "../assets/user.png"
+              : "https://avatar.iran.liara.run/public"
           }
           alt="Your profile"
           className="h-14 w-14 rounded-full"
