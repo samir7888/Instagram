@@ -54,7 +54,7 @@ export const Profile = () => {
               src={
                 userState.displayPictureUrl
                   ? `https://instagram-production-90d9.up.railway.app/${userState.displayPictureUrl}`
-                  : "/path/to/default/image.jpg"
+                  : "https://avatar.iran.liara.run/public"
               }
               alt="Profile"
               className="w-full h-full rounded-full object-cover border-2 border-gray-800"
