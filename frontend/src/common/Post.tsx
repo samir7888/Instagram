@@ -88,7 +88,7 @@ const Post = ({ postId }: PostProps) => {
             src={
               post?.author?.displayPictureUrl
                 ? `https://instagram-production-90d9.up.railway.app/${post.author.displayPictureUrl}`
-                : "/path/to/default/image.jpg"
+                : "https://avatar.iran.liara.run/public"
             }
             alt={post?.author?.username}
             className="h-8 w-8 rounded-full object-cover"

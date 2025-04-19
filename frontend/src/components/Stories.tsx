@@ -22,7 +22,7 @@ const Stories = () => {
           src={
             story.displayPictureUrl
               ? `https://instagram-production-90d9.up.railway.app/${story.displayPictureUrl}`
-              : "../assets/user.png"
+              : "https://avatar.iran.liara.run/public"
           }
           alt={story.username}
           className="h-full w-full rounded-full object-cover"
